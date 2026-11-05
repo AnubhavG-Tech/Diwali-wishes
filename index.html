@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff8eb">
+<title>Diwali Panda Express ✨</title>
+<style>
+  :root {
+    --ink: #3c252b;
+    --muted: #806d6b;
+    --night: #27143f;
+    --violet: #583077;
+    --cream: #fff8eb;
+    --paper: #fffdf8;
+    --cloud: #fffdf6;
+    --cloud-outline: #3b2740;
+    --saffron: #ffb73d;
+    --coral: #f4775b;
+    --orange: #f47c49;
+    --pink: #f7bfd0;
+    --rose: #f4abc1;
+    --lavender: #bba5e3;
+    --purple: #72549d;
+    --mint: #a9dfc4;
+    --gold: #ffc857;
+    --gold-shadow: #d88a2e;
+    --panel-border: #edd9c6;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(ellipse at 12% 10%, #ffe7d1 0, transparent 25%),
+      radial-gradient(ellipse at 90% 82%, #eadff8 0, transparent 28%),
+      var(--cream);
+    overflow-x: hidden;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .scene {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 30px 16px;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .scene:before,
+  .scene:after {
+    position: fixed;
+    color: #f3b94c;
+    font-size: 29px;
+    z-index: -1;
+    animation: twinkle 3s ease-in-out infinite alternate;
+    text-shadow: none;
+  }
+
+  .scene:before {
+    content: "✦  ·  ✧";
+    top: 13%;
+    left: 7%;
+  }
+
+  .scene:after {
+    content: "✧  ·  ✦";
+    right: 7%;
+    bottom: 17%;
+    font-size: 23px;
+    animation-delay: 1.2s;
+  }
+
+  .wrap {
+    width: min(100%, 770px);
+  }
+
+  .brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #a16047;
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+
+  .card {
+    background: rgba(255, 253, 248, .94);
+    border: 1px solid #fff;
+    border-radius: 34px;
+    padding: clamp(25px, 5vw, 48px);
+    box-shadow: 0 22px 70px #76514016, 0 3px 12px #7651400c;
+    position: relative;
+    overflow: hidden;
+    min-height: 510px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card:before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 7px;
+    background: linear-gradient(90deg, #f1894f, #f8c65a, #ec9cb6, #a58ac5);
+  }
+
+  .card:after {
+    content: "✦";
+    position: absolute;
+    right: 24px;
+    bottom: 18px;
+    color: #f2b64629;
+    font-size: 38px;
+  }
+
+  .view {
+    width: 100%;
+    text-align: center;
+    animation: fadeup .45s both;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .step {
+    font-size: 12px;
+    color: #a27a72;
+    font-weight: 850;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+
+  h1, h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: -.04em;
+    font-weight: 700;
+  }
+
+  .question {
+    font-size: clamp(28px, 5.2vw, 43px);
+    line-height: 1.08;
+    margin: 0 auto;
+    max-width: 520px;
+  }
+
+  .intro, .question-sub {
+    color: var(--muted);
+    line-height: 1.58;
+    margin: 13px auto 0;
+    max-width: 450px;
+    font-size: 15px;
+  }
+
+  .progress {
+    height: 7px;
+    border-radius: 999px;
+    background: #f0e8df;
+    max-width: 420px;
+    margin: 0 auto 17px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 2px #8f5c3b20;
+  }
+
+  .progress span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange), var(--gold));
+    border-radius: inherit;
+    transition: width .35s;
+  }
+
+  .cloud-shape {
+    display: none;
+  }
+
+  .thought-cloud {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 570px);
+    min-height: 0;
+    margin: 0 auto 24px;
+    padding: clamp(28px, 5vw, 44px);
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #fffefa 0%, #fff2dd 100%);
+    border: 1px solid var(--panel-border);
+    border-radius: 38px 22px 38px 22px;
+    box-shadow: inset 0 0 0 7px #fffaf1, 0 12px 26px #79513914;
+  }
+
+  .thought-cloud:before,
+  .thought-cloud:after {
+    position: absolute;
+    color: #e8a84c;
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  .thought-cloud:before {
+    content: "✦";
+    top: 18px;
+    left: 22px;
+  }
+
+  .thought-cloud:after {
+    content: "✧";
+    right: 22px;
+    bottom: 18px;
+  }
+
+  .thought-copy,
+  .speech-copy {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .intro-cloud {
+    min-height: 0;
+    margin-bottom: 20px;
+    padding-top: 42px;
+  }
+
+  .intro-cloud .step {
+    margin-bottom: 11px;
+  }
+
+  .question-cloud {
+    min-height: 185px;
+  }
+
+  .answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .answer {
+    position: relative;
+    border: 1.5px solid #ecd8cc;
+    background: #fffdfa;
+    border-radius: 23px 13px 23px 13px;
+    padding: 15px 16px;
+    min-height: 68px;
+    color: #553f3d;
+    font-weight: 800;
+    line-height: 1.25;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .18s, box-shadow .18s, border-color .18s, background-color .18s;
+    background-clip: padding-box;
+    box-shadow: 0 4px 0 #efdcd0;
+  }
+
+  .answer:nth-child(n) {
+    background: #fffdfa;
+  }
+
+  .answer:nth-child(4n+2) {
+    background: #fff6e7;
+  }
+
+  .answer:nth-child(4n+3) {
+    background: #fff0f4;
+  }
+
+  .answer:nth-child(4n+4) {
+    background: #f0f8ef;
+  }
+
+  .answer:hover,
+  .answer:focus-visible {
+    border-color: #efa178;
+    background: #fff7ef;
+    transform: translateY(-2px);
+    outline: none;
+    box-shadow: 0 6px 0 #e8c8b6;
+  }
+
+  .answer.selected {
+    border-color: #e98259;
+    background: #fff1e7;
+    box-shadow: 0 0 0 3px #f8e6d9, 0 5px 0 #e8c8b6;
+    transform: translateY(-1px) scale(1.01);
+  }
+
+  .answer .emoji {
+    font-size: 22px;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: -2px;
+  }
+
+  .name-cloud {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 390px);
+    margin: 0 auto;
+    padding: 14px 24px;
+    border: 1.5px solid #ecd8cc;
+    background: #fffdfa;
+    border-radius: 19px;
+    box-shadow: 0 4px 0 #efdcd0;
+  }
+
+  .name-input {
+    border: 0;
+    background: transparent;
+    padding: 4px 2px;
+    font-size: 18px;
+    color: var(--ink);
+    width: 100%;
+    outline: none;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .name-input::placeholder {
+    color: #aa9ca1;
+    font-weight: 500;
+  }
+
+  .btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 15px 24px;
+    background: var(--orange);
+    color: #fffdf8;
+    font-weight: 850;
+    box-shadow: 0 8px 18px #df744333, 0 5px 0 #c95f31;
+    transition: transform .18s, box-shadow .18s;
+  }
+
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 11px 22px #df744344, 0 7px 0 #c95f31;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 13px #df744333, 0 3px 0 #c95f31;
+  }
+
+  .btn:disabled {
+    opacity: .48;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn:focus-visible,
+  .text-btn:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 3px;
+  }
+
+  .next {
+    margin-top: 22px;
+    min-width: 195px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: #9c7c79;
+    margin: 14px 0 0;
+  }
+
+  .back,
+  .text-btn {
+    border: 0;
+    background: none;
+    color: #886b60;
+    font-weight: 800;
+    padding: 12px 15px;
+  }
+
+  .back:hover,
+  .text-btn:hover {
+    color: #d96f48;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+
+  /* Greeting reveal & Panda walking layout */
+  .result {
+    text-align: center;
+    width: 100%;
+    animation: fadeup .55s both;
+  }
+
+  .result .step {
+    margin-bottom: 8px;
+  }
+
+  .headline {
+    font-size: clamp(32px, 5.8vw, 49px);
+    line-height: 1.08;
+    margin: 0 0 4px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .headline em {
+    color: #e5764c;
+    font-style: normal;
+  }
+
+  .panda-layout {
+    position: relative;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    align-items: end;
+    gap: 12px;
+    width: min(100%, 635px);
+    height: auto;
+    min-height: 335px;
+    margin: 12px auto 0;
+  }
+
+  .speech {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: auto;
+    min-height: 0;
+    padding: 31px 34px 30px;
+    background: linear-gradient(145deg, #fffefa 0%, #fff1dd 100%);
+    border: 1px solid var(--panel-border);
+    border-radius: 34px 18px 34px 18px;
+    box-shadow: inset 0 0 0 6px #fffaf1, 0 12px 24px #79513916;
+    font-family: Georgia, serif;
+    font-size: clamp(15px, 2.3vw, 17.5px);
+    line-height: 1.5;
+    order: 2;
+    isolation: isolate;
+    opacity: 0;
+    transform: translateY(12px) scale(.96);
+    animation: speechReveal .55s 1.25s cubic-bezier(.16, .84, .35, 1) forwards;
+  }
+
+  .speech:before,
+  .speech:after {
+    position: absolute;
+    color: #e8a84c;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .speech:before {
+    content: "✦";
+    top: 13px;
+    left: 17px;
+  }
+
+  .speech:after {
+    content: "✧";
+    right: 17px;
+    bottom: 13px;
+  }
+
+  .speech strong {
+    color: #d96f48;
+  }
+
+  .speech .roast-addon {
+    display: block;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e6ccb2;
+    font-family: ui-rounded, "SF Pro Rounded", "Nunito", sans-serif;
+    font-size: 13.5px;
+    color: #84594d;
+    font-weight: 700;
+  }
+
+  .panda-stage {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 300px;
+    height: 300px;
+    justify-self: center;
+    order: 1;
+  }
+
+  .ground {
+    position: absolute;
+    bottom: 17px;
+    left: 9%;
+    right: 4%;
+    height: 2px;
+    background: #e8d8c7;
+  }
+
+  /* Panda walks across the stage first (1.5s), then bobs gently in place */
+  .panda {
+    position: absolute;
+    width: 250px;
+    height: 275px;
+    left: 47%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    animation:
+      pandaWalkIn 1.55s cubic-bezier(.22, .78, .28, 1) both,
+      bob 2.2s 1.55s ease-in-out infinite;
+  }
+
+  .panda .body {
+    position: absolute;
+    width: 182px;
+    height: 158px;
+    bottom: 0;
+    left: 34px;
+    border-radius: 48% 48% 43% 43%;
+    background: #fff;
+    box-shadow: inset -12px -7px #f3ece6, 0 7px 12px #6e4a3718;
+  }
+
+  .panda .head {
+    position: absolute;
+    left: 45px;
+    top: 10px;
+    width: 166px;
+    height: 151px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: inset -7px -7px #f3ece6, 0 7px 14px #6e4a3718;
+    z-index: 2;
+  }
+
+  /* Cute Diwali Tika on Panda's forehead */
+  .tika {
+    position: absolute;
+    left: 50%;
+    top: 34px;
+    transform: translateX(-50%);
+    width: 9px;
+    height: 14px;
+    background: #e5533d;
+    border-radius: 50% 50% 45% 45%;
+    z-index: 5;
+    box-shadow: 0 0 0 2px #ffc857;
+  }
+
+  .ear {
+    position: absolute;
+    top: 0;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #30272a;
+  }
+
+  .ear.left {
+    left: 27px;
+  }
+
+  .ear.right {
+    right: 27px;
+  }
+
+  .patch {
+    position: absolute;
+    top: 53px;
+    width: 44px;
+    height: 60px;
+    border-radius: 50%;
+    background: #30272a;
+    transform: rotate(20deg);
+  }
+
+  .patch.left {
+    left: 67px;
+  }
+
+  .patch.right {
+    right: 67px;
+    transform: rotate(-20deg);
+  }
+
+  .eye {
+    position: absolute;
+    top: 73px;
+    width: 8px;
+    height: 11px;
+    border-radius: 50%;
+    background: white;
+    left: 81px;
+    z-index: 3;
+  }
+
+  .eye.right {
+    left: auto;
+    right: 81px;
+  }
+
+  .muzzle {
+    position: absolute;
+    left: 63px;
+    top: 88px;
+    width: 35px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 3;
+  }
+
+  .muzzle.right {
+    left: auto;
+    right: 63px;
+  }
+
+  .nose {
+    position: absolute;
+    left: 78px;
+    top: 90px;
+    width: 13px;
+    height: 10px;
+    background: #30272a;
+    border-radius: 50%;
+    z-index: 4;
+  }
+
+  .smile {
+    position: absolute;
+    left: 84px;
+    top: 101px;
+    width: 1px;
+    height: 12px;
+    border-left: 2px solid #30272a;
+    z-index: 4;
+  }
+
+  .smile:after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: -7px;
+    width: 13px;
+    height: 7px;
+    border-bottom: 2px solid #30272a;
+    border-radius: 50%;
+  }
+
+  .blush {
+    position: absolute;
+    top: 105px;
+    width: 21px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f4a4a3;
+    opacity: .75;
+    z-index: 4;
+  }
+
+  .blush.left {
+    left: 48px;
+  }
+
+  .blush.right {
+    right: 48px;
+  }
+
+  .arm {
+    position: absolute;
+    top: 150px;
+    width: 39px;
+    height: 77px;
+    background: #30272a;
+    border-radius: 25px;
+    transform-origin: top center;
+    z-index: 1;
+  }
+
+  .arm.left {
+    left: 20px;
+    transform: rotate(20deg);
+    animation: wave .65s 1.55s 6;
+  }
+
+  .arm.right {
+    right: 20px;
+    transform: rotate(-20deg);
+  }
+
+  .foot {
+    position: absolute;
+    bottom: -1px;
+    width: 54px;
+    height: 30px;
+    border-radius: 50%;
+    background: #30272a;
+    z-index: 3;
+  }
+
+  .foot.left {
+    left: 50px;
+    animation: stepLeft .32s 0s 5 alternate ease-in-out;
+  }
+
+  .foot.right {
+    right: 50px;
+    animation: stepRight .32s 0s 5 alternate ease-in-out;
+  }
+
+  .sparkle {
+    position: absolute;
+    font-size: 25px;
+    color: #edaa3a;
+    animation: twinkle .9s infinite alternate;
+    text-shadow: none;
+  }
+
+  .sparkle.one {
+    left: 1%;
+    top: 43px;
+  }
+
+  .sparkle.two {
+    right: 3%;
+    top: 155px;
+    animation-delay: .4s;
+  }
+
+  .sparkle.three {
+    right: 13%;
+    top: 37px;
+    font-size: 18px;
+  }
+
+  .wish-note {
+    font-size: 13px;
+    color: #987c70;
+    margin: 6px 0 0;
+  }
+
+  .footer {
+    font-size: 11px;
+    color: #a68d88;
+    text-align: center;
+    margin: 12px 0 0;
+  }
+
+  .confetti {
+    position: fixed;
+    top: -12px;
+    width: 8px;
+    height: 13px;
+    border-radius: 2px;
+    z-index: 5;
+    pointer-events: none;
+    animation: fall var(--d) linear forwards;
+    left: var(--x);
+    background: var(--c);
+  }
+
+  @keyframes pandaWalkIn {
+    0% {
+      transform: translate(-185%, 6px) rotate(-6deg);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    25% {
+      transform: translate(-145%, -8px) rotate(5deg);
+    }
+    50% {
+      transform: translate(-105%, 4px) rotate(-5deg);
+    }
+    75% {
+      transform: translate(-72%, -7px) rotate(4deg);
+    }
+    90% {
+      transform: translate(-54%, 2px) rotate(-2deg);
+    }
+    100% {
+      transform: translate(-50%, 0) rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  @keyframes stepLeft {
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(-10px) rotate(-12deg); }
+  }
+
+  @keyframes stepRight {
+    from { transform: translateY(-10px) rotate(12deg); }
+    to { transform: translateY(0) rotate(0deg); }
+  }
+
+  @keyframes speechReveal {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes bob {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -6px; }
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(20deg); }
+    50% { transform: rotate(50deg); }
+  }
+
+  @keyframes fadeup {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes twinkle {
+    to {
+      opacity: .25;
+      transform: scale(.8) rotate(20deg);
+    }
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(620deg);
+      opacity: .9;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .scene {
+      padding: 20px 12px;
+    }
+    .card {
+      border-radius: 26px;
+      padding: 28px 18px;
+      min-height: 520px;
+    }
+    .thought-cloud {
+      padding: 31px 27px;
+      margin-bottom: 20px;
+      border-radius: 30px 17px 30px 17px;
+    }
+    .intro-cloud {
+      padding-top: 38px;
+    }
+    .question-cloud {
+      min-height: 175px;
+    }
+    .question {
+      font-size: clamp(26px, 8.2vw, 37px);
+    }
+    .question-sub,
+    .intro-cloud .intro {
+      font-size: 14px;
+    }
+    .answers {
+      grid-template-columns: 1fr;
+      max-width: 370px;
+    }
+    .answer {
+      padding: 13px;
+      min-height: 64px;
+    }
+    .panda-layout {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      min-height: 0;
+    }
+    .speech {
+      width: min(100%, 390px);
+      padding: 28px 25px;
+      font-size: 15px;
+      justify-self: center;
+      order: 1;
+    }
+    .panda-stage {
+      width: 280px;
+      height: 280px;
+      order: 2;
+    }
+    .panda {
+      scale: .89;
+      transform-origin: bottom center;
+    }
+    .result .step {
+      margin-top: 0;
+    }
+    .headline {
+      font-size: 35px;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .thought-cloud {
+      padding-left: 22px;
+      padding-right: 22px;
+    }
+    .speech {
+      padding: 24px 21px;
+      font-size: 14px;
+    }
+    .card {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+    .panda-stage {
+      scale: .88;
+      transform-origin: bottom center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="scene">
+  <div class="wrap">
+    <p class="brand"><span>🪔</span> Diwali Panda Express <span>🪔</span></p>
+    <section class="card" aria-live="polite">
+
+      <!-- VIEW 1: INTRO -->
+      <div class="view" id="intro">
+        <div class="thought-cloud intro-cloud">
+          <div class="thought-copy">
+            <p class="step">A tiny surprise is waiting</p>
+            <h1 class="question">Panda ek top-secret Diwali wish leke aaya hai!</h1>
+            <p class="intro">Par pehle is cute fluffball ko thodi details chahiye. Sahi-sahi answers tap karo—panda promise karta hai tumhare answers nahi khayega!</p>
+          </div>
+        </div>
+        <button class="btn next" id="startBtn">Chalo shuru karein ✨</button>
+        <p class="hint">Bas 10 seconds lagenge. Panda time ka bohot pakka hai. Mostly.</p>
+      </div>
+
+      <!-- VIEW 2: DYNAMIC QUIZ -->
+      <div class="view hidden" id="quiz">
+        <div class="progress" aria-label="Question progress"><span id="progressFill"></span></div>
+        <p class="step" id="qStep">Question 1 of 3</p>
+        <div class="thought-cloud question-cloud">
+          <div class="thought-copy">
+            <h2 class="question" id="qTitle"></h2>
+            <p class="question-sub" id="qSub"></p>
+          </div>
+        </div>
+
+        <div class="answers" id="answers"></div>
+
+        <div id="nameArea" class="hidden">
+          <div class="name-cloud">
+            <input class="name-input" id="nameInput" maxlength="28" autocomplete="off" placeholder="Apna naam yahan likho..." aria-label="Your name">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="back hidden" id="backBtn" type="button">← Back</button>
+          <button class="btn next hidden" id="nextBtn" type="button">Agla Sawaal →</button>
+        </div>
+      </div>
+
+      <!-- VIEW 3: WALKING PANDA & SPEECH BUBBLE REVEAL -->
+      <div class="view hidden" id="reveal">
+        <div class="result">
+          <p class="step" id="deliveryBadge">Special delivery from your Diwali panda</p>
+          <h2 class="headline">Happy Diwali, <em id="recipient">friend</em>!</h2>
+
+          <div class="panda-layout" id="pandaLayout">
+            <div class="speech" id="speech">
+              <span class="speech-copy" id="speechCopy"></span>
+            </div>
+
+            <span class="sparkle one">✦</span>
+            <span class="sparkle two">✧</span>
+            <span class="sparkle three">✦</span>
+
+            <div class="panda-stage">
+              <div class="ground"></div>
+              <div class="panda" id="pandaCharacter" role="img" aria-label="A cute walking and waving Diwali panda">
+                <div class="ear left"></div>
+                <div class="ear right"></div>
+                <div class="body"></div>
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+                <div class="foot left"></div>
+                <div class="foot right"></div>
+                <div class="head">
+                  <div class="tika"></div>
+                  <div class="patch left"></div>
+                  <div class="patch right"></div>
+                  <div class="eye"></div>
+                  <div class="eye right"></div>
+                  <div class="muzzle"></div>
+                  <div class="muzzle right"></div>
+                  <div class="nose"></div>
+                  <div class="smile"></div>
+                  <div class="blush left"></div>
+                  <div class="blush right"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="wish-note" id="wishNote"></p>
+
+          <div class="actions">
+            <button class="btn" id="copyBtn" type="button">Copy Wish 💌</button>
+            <button class="text-btn" id="patakhaBtn" type="button">Phod Patakha! 🧨</button>
+            <button class="text-btn" id="againBtn" type="button">Ek Aur Wish Banao ↻</button>
+          </div>
+          <p class="footer">Made with a little glow, Kaju Katli, and a lot of panda energy.</p>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+<script>
+  const answers = {
+    name: '',
+    relation: '',
+    followUp: ''
+  };
+
+  let activeSteps = [];
+  let current = 0;
+
+  const intro = document.querySelector('#intro');
+  const quiz = document.querySelector('#quiz');
+  const reveal = document.querySelector('#reveal');
+  const qTitle = document.querySelector('#qTitle');
+  const qSub = document.querySelector('#qSub');
+  const qStep = document.querySelector('#qStep');
+  const answersEl = document.querySelector('#answers');
+  const nameArea = document.querySelector('#nameArea');
+  const nameInput = document.querySelector('#nameInput');
+  const nextBtn = document.querySelector('#nextBtn');
+  const backBtn = document.querySelector('#backBtn');
+  const fill = document.querySelector('#progressFill');
+
+  function buildQuestionList() {
+    const list = [
+      {
+        key: 'name',
+        title: 'Naam kya hai is VIP namoone ka?',
+        sub: 'Panda ko delivery envelope pe naam likhne ke liye chahiye!',
+        options: null
+      },
+      {
+        key: 'relation',
+        title: 'Tum mere kya lagte ho? Sach batana!',
+        sub: 'Jhoot bola toh Panda tumhari हिस्से ki Kaju Katli kha jayega 👀',
+        options: [
+          ['👧', 'Sister (Behen)'],
+          ['👦', 'Brother (Bhai)'],
+          ['🤝', 'Jigri Yaar (Bestie)'],
+          ['🤯', 'Permanent Headache'],
+          ['🐍', 'Aasteen Ka Saanp'],
+          ['📦', 'Soan Papdi Partner']
+        ]
+      }
+    ];
+
+    if (answers.relation === 'Sister (Behen)') {
+      list.push({
+        key: 'followUp',
+        title: 'Achha behen, ab ye batao tum Badi Sis ho ya Chhoti?',
+        sub: 'Isi hisaab se Panda decide karega ki izzat deni hai ya roast karna hai!',
+        options: [
+          ['👑', 'Badi Didi (Ghar ki 2nd Mom)'],
+          ['🧸', 'Chhoti Behen (Drama Queen)'],
+          ['🥊', 'Judwa / Barabar (Fighting Partner)'],
+          ['🕵️‍♀️', 'Mummy ki Khufiya Jasoos']
+        ]
+      });
+    } else if (answers.relation === 'Brother (Bhai)') {
+      list.push({
+        key: 'followUp',
+        title: 'Aur bhai, tum Bade Bhai ho ya Chhote?',
+        sub: 'Sach batana, Diwali lifafe aur TV remote ka sawaal hai!',
+        options: [
+          ['🕶️', 'Bada Bhai (Walking ATM)'],
+          ['🎮', 'Chhota Bhai (Muft ka Majdoor)'],
+          ['🏋️‍♂️', 'Gym aur Protein Partner'],
+          ['🛵', 'Raat ki Maggi Partner']
+        ]
+      });
+    } else {
+      list.push({
+        key: 'followUp',
+        title: 'Iss Diwali mujhse kya umeed lagaye baithe ho?',
+        sub: 'Soch samajh ke bolna, Panda ka budget pehle se hi hila hua hai!',
+        options: [
+          ['💸', 'Cash / Lifafa (Sapne mat dekho)'],
+          ['📦', 'Wahi purana Soan Papdi ka dabba'],
+          ['🍫', 'Mehengi Cadbury Celebrations'],
+          ['🙏', 'Bas meri shakal mat dikhana']
+        ]
+      });
+    }
+
+    return list;
+  }
+
+  document.querySelector('#startBtn').addEventListener('click', () => {
+    intro.classList.add('hidden');
+    quiz.classList.remove('hidden');
+    activeSteps = buildQuestionList();
+    showQuestion(0);
+  });
+
+  function showQuestion(index) {
+    activeSteps = buildQuestionList();
+    current = index;
+    const q = activeSteps[index];
+
+    qStep.textContent = `Step ${index + 1} of ${activeSteps.length}`;
+    qTitle.textContent = q.title;
+    qSub.textContent = q.sub;
+    fill.style.width = `${((index + 1) / activeSteps.length) * 100}%`;
+
+    answersEl.innerHTML = '';
+    answersEl.classList.toggle('hidden', q.key === 'name');
+    nameArea.classList.toggle('hidden', q.key !== 'name');
+    nextBtn.classList.add('hidden');
+    backBtn.classList.toggle('hidden', index === 0);
+
+    if (q.key === 'name') {
+      nameInput.value = answers.name || '';
+      nextBtn.textContent = 'Agla Sawaal →';
+      nextBtn.classList.remove('hidden');
+      nextBtn.disabled = !nameInput.value.trim();
+
+      nameInput.oninput = () => {
+        nextBtn.disabled = !nameInput.value.trim();
+      };
+      setTimeout(() => nameInput.focus(), 80);
+    } else {
+      q.options.forEach(([emoji, label]) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'answer' + (answers[q.key] === label ? ' selected' : '');
+        b.setAttribute('aria-pressed', answers[q.key] === label ? 'true' : 'false');
+        b.innerHTML = `<span class="emoji">${emoji}</span>${label}`;
+
+        b.addEventListener('click', () => {
+          const prevVal = answers[q.key];
+          answers[q.key] = label;
+
+          if (q.key === 'relation' && prevVal !== label) {
+            answers.followUp = '';
+          }
+
+          activeSteps = buildQuestionList();
+          qStep.textContent = `Step ${current + 1} of ${activeSteps.length}`;
+          fill.style.width = `${((current + 1) / activeSteps.length) * 100}%`;
+
+          Array.from(answersEl.children).forEach(el => {
+            el.classList.remove('selected');
+            el.setAttribute('aria-pressed', 'false');
+          });
+          b.classList.add('selected');
+          b.setAttribute('aria-pressed', 'true');
+
+          nextBtn.textContent = current === activeSteps.length - 1 ? 'Bulao Panda Ko! 🐼' : 'Agla Sawaal →';
+          nextBtn.classList.remove('hidden');
+        });
+
+        answersEl.appendChild(b);
+      });
+
+      if (answers[q.key]) {
+        nextBtn.textContent = index === activeSteps.length - 1 ? 'Bulao Panda Ko! 🐼' : 'Agla Sawaal →';
+        nextBtn.classList.remove('hidden');
+      }
+    }
+  }
+
+  nextBtn.addEventListener('click', () => {
+    activeSteps = buildQuestionList();
+    const q = activeSteps[current];
+
+    if (q.key === 'name') {
+      const val = nameInput.value.trim();
+      if (!val) return;
+      answers.name = val;
+    }
+
+    if (current < activeSteps.length - 1) {
+      showQuestion(current + 1);
+    } else {
+      showReveal();
+    }
+  });
+
+  backBtn.addEventListener('click', () => {
+    if (current > 0) {
+      showQuestion(current - 1);
+    }
+  });
+
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && nameInput.value.trim()) {
+      nextBtn.click();
+    }
+  });
+
+  function generateWishContent() {
+    const rel = answers.relation;
+    const sub = answers.followUp;
+
+    let mainWish = '';
+    let badgeText = 'Special delivery from your Diwali panda';
+
+    if (rel === 'Sister (Behen)') {
+      badgeText = `Special Delivery for ${sub || 'Sister'} 👧`;
+      if (sub === 'Badi Didi (Ghar ki 2nd Mom)') {
+        mainWish = `Happy Diwali Badi Sis! May God give you some brain to use aur thoda kam bossy banne ki shakti de. Waise toh tu ghar ki doosri Mummy banti hai, par aaj ke din order mat chala—chup-chap mera Diwali lifafa nikaal! 💸✨`;
+      } else if (sub === 'Chhoti Behen (Drama Queen)') {
+        mainWish = `Happy Diwali Chhoti Sis! May God finally give you a brain to use kyunki tera wala toh abhi tak bilkul unused pada hai! Mummy se meri chugli karna band kar warna teri saari chocolates gayab kar dunga! 🍫🧨`;
+      } else if (sub === 'Judwa / Barabar (Fighting Partner)') {
+        mainWish = `Happy Diwali Sis! May God give you some brain to use! TV remote aur charger pe ladna band kar aur jaake thodi rangoli bana, warna phuljhari tere peeche chhod dunga! 🎇😂`;
+      } else {
+        mainWish = `Happy Diwali Khufiya Jasoos Sis! May God give you a brain to use! Aaj ke din toh CID banna band kar de behen, aur mithai kha ke apna muh band rakh! 🕵️‍♀️🍬`;
+      }
+    } else if (rel === 'Brother (Bhai)') {
+      badgeText = `Special Delivery for ${sub || 'Brother'} 👦`;
+      if (sub === 'Bada Bhai (Walking ATM)') {
+        mainWish = `Happy Diwali Bade Bhai! Bhagwan tujhe thoda dimaag aur bohot saara paisa de taaki tu mera udhaar chuka sake! Aaj kanjoosi side rakh aur chup-chap Google Pay pe Diwali bonus bhej! 💸🧨`;
+      } else if (sub === 'Chhota Bhai (Muft ka Majdoor)') {
+        mainWish = `Happy Diwali Chhote! May God give you some brain to use, warna zindagi bhar mera paani ka bottle hi bharta rahega! Ja ab fridge se kaju katli leke aa bina khaye! 🍬🏃‍♂️`;
+      } else {
+        mainWish = `Happy Diwali Mere Bhai! Bhagwan tujhe thodi akal aur dher saari Kaju Katli hazam karne ki shakti de. Aaj diet aur bakwaas dono band, bas patakhe phod! 🔥💪`;
+      }
+    } else if (rel === 'Jigri Yaar (Bestie)') {
+      badgeText = 'Special Delivery for Jigri Yaar 🤝';
+      mainWish = `Happy Diwali mere Jigri Yaar! Bhagwan tujhe iss saal thoda dimaag de taaki tu meri bekar salah maanna band kare! Diyas jalaye ya na jalaye, tu meri zindagi mein aag lagana kabhi band mat karna! 🔥🍻`;
+    } else if (rel === 'Permanent Headache') {
+      badgeText = 'Special Delivery for Permanent Sar-Dard 🤯';
+      mainWish = `Happy Diwali mere Permanent Sar-Dard! Disprin bhi tujhse haar maan chuki hai. Bhagwan tujhe thodi sadbuddhi de taaki tu mera khoon peena kam kare aur mithai zyada khaye! 🤯🪔`;
+    } else if (rel === 'Aasteen Ka Saanp') {
+      badgeText = 'Special Delivery for 24-Carat Saanp 🐍';
+      mainWish = `Happy Diwali 24-Carat Aasteen ke Saanp! Naag Panchami toh nikal gayi par socha Diwali pe bhi tujhe dudh-jalebi offer kar du. Thoda kam dasa kar bhai, khush reh! 🐍🎇`;
+    } else {
+      badgeText = 'Official Soan Papdi Exchange 📦';
+      mainWish = `Happy Diwali mere Soan Papdi Partner! Jo dabba tune pichle saal mujhe chipkaya tha, wahi naya wrapping paper laga ke wapas bhej raha hu. Khush reh aur kaju katli bhej! 📦😂`;
+    }
+
+    const noteReports = {
+      'Badi Didi (Ghar ki 2nd Mom)': 'Panda Report: Didi ka bossy meter 100% pe hai, lifafa milne ke chances 50-50 hain.',
+      'Chhoti Behen (Drama Queen)': 'Panda Report: Chhoti behen ke nakhre raste bhar chalu the, dimaag abhi bhi downloading pe hai.',
+      'Judwa / Barabar (Fighting Partner)': 'Panda Report: Remote aur charger chhupa ke rakhna, war kabhi bhi shuru ho sakti hai.',
+      'Mummy ki Khufiya Jasoos': 'Panda Report: Savdhaan! Ye wish bhi Mummy ko dikhayi ja sakti hai.',
+      'Bada Bhai (Walking ATM)': 'Panda Report: ATM mein cash hai, bas thoda makkhan lagane ki der hai!',
+      'Chhota Bhai (Muft ka Majdoor)': 'Panda Report: Chhote ko kaam pe laga diya gaya hai, paani ki bottle bhar raha hai.',
+      'Gym aur Protein Partner': 'Panda Report: Aaj protein shake nahi, sirf Kaju Katli aur Chakli chalegi!',
+      'Raat ki Maggi Partner': 'Panda Report: Patakhe phodne ke baad 2 baje wali Maggi pakki hai!',
+      'Cash / Lifafa (Sapne mat dekho)': 'Panda Report: Lifafa maangne ki himmat toh dekho—andar sirf duayein hain!',
+      'Wahi purana Soan Papdi ka dabba': 'Panda Report: Soan Papdi ka dabba 5 ghar ghoom ke wapas aapke paas aa chuka hai!',
+      'Mehengi Cadbury Celebrations': 'Panda Report: Cadbury Celebrations raste mein Panda khud kha gaya, sirf wrapper bacha hai!',
+      'Bas meri shakal mat dikhana': 'Panda Report: Itna sach nahi bolna tha, ab toh zabardasti ghar aake mithai khaunga!'
+    };
+
+    return {
+      badgeText,
+      mainWish,
+      noteReport: noteReports[sub] || 'Panda Report: Wish aur roast dono 100% सुरक्षित deliver ho gaye hain!'
+    };
+  }
+
+  function showReveal() {
+    quiz.classList.add('hidden');
+    reveal.classList.remove('hidden');
+
+    document.querySelector('#copyBtn').innerHTML = 'Copy Wish 💌';
+    const name = answers.name || 'Yaar';
+    document.querySelector('#recipient').textContent = name;
+
+    const { badgeText, mainWish, noteReport } = generateWishContent();
+    document.querySelector('#deliveryBadge').textContent = badgeText;
+
+    // Retrigger Panda walking and speech bubble animations cleanly
+    const pandaEl = document.querySelector('#pandaCharacter');
+    const speechEl = document.querySelector('#speech');
+    pandaEl.style.animation = 'none';
+    speechEl.style.animation = 'none';
+    void pandaEl.offsetWidth;
+    pandaEl.style.animation = '';
+    speechEl.style.animation = '';
+
+    document.querySelector('#speechCopy').innerHTML =
+      `<strong>“Oye ${escapeHTML(name)}!</strong> ${escapeHTML(mainWish)}”`;
+
+    document.querySelector('#wishNote').textContent = noteReport;
+
+    launchConfetti();
+    reveal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function launchConfetti() {
+    const colors = ['#f47c49', '#ffc857', '#e99ab6', '#8a70aa', '#78a88e'];
+    for (let i = 0; i < 42; i++) {
+      const el = document.createElement('i');
+      el.className = 'confetti';
+      el.style.setProperty('--x', Math.random() * 100 + 'vw');
+      el.style.setProperty('--d', (2.7 + Math.random() * 2.3) + 's');
+      el.style.setProperty('--c', colors[i % colors.length]);
+      el.style.animationDelay = (Math.random() * .65) + 's';
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove(), { once: true });
+    }
+  }
+
+  document.querySelector('#patakhaBtn').addEventListener('click', () => {
+    launchConfetti();
+  });
+
+  document.querySelector('#againBtn').addEventListener('click', () => {
+    answers.name = '';
+    answers.relation = '';
+    answers.followUp = '';
+    reveal.classList.add('hidden');
+    intro.classList.remove('hidden');
+  });
+
+  document.querySelector('#copyBtn').addEventListener('click', (e) => {
+    const headlineText = document.querySelector('.headline').textContent;
+    const speechText = document.querySelector('#speechCopy').innerText;
+    const noteText = document.querySelector('#wishNote').textContent;
+    const fullText = `${headlineText}\n\n${speechText}\n\n${noteText}`;
+
+    const button = e.currentTarget;
+    const tempInput = document.createElement('textarea');
+    tempInput.value = fullText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+
+    try {
+      document.execCommand('copy');
+      button.textContent = 'Wish copied! ✅';
+    } catch {
+      button.textContent = 'Select & copy the bubble!';
+    }
+    document.body.removeChild(tempInput);
+  });
+
+  function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c]));
+  }
+</script>
+</body>
+</html>
